@@ -81,44 +81,54 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-black text-white">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 flex flex-col lg:ml-64">
-        {/* Header */}
-        <header className="bg-white border-b border-gray-200 p-4 flex items-center gap-4">
+      <div className="flex-1 flex flex-col lg:ml-64 relative overflow-hidden">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1600')",
+          }}
+        />
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
+
+        {/* Mobile top bar (menu only) */}
+        <div className="relative z-10 lg:hidden p-4 flex items-center">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="lg:hidden text-gray-600 hover:text-gray-900"
+            className="text-white/90 hover:text-white"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="w-7 h-7" />
           </button>
-          <h1 className="text-xl font-bold text-gray-900">
-            Delhi Legislative Assembly AI
-          </h1>
-        </header>
+        </div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto">
+        {/* Messages area */}
+        <div className="relative z-10 flex-1 overflow-y-auto pt-8 pb-4">
           {messages.map((message) => (
             <ChatMessage key={message.id} message={message} />
           ))}
           {isLoading && (
-            <div className="flex gap-4 p-4 bg-white">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              </div>
-              <div className="flex-1">
-                <div className="font-semibold text-sm mb-1">Delhi Assembly AI</div>
-                <div className="text-gray-600">Thinking...</div>
+            <div className="w-full flex justify-end mb-6 px-6 md:px-16">
+              <div className="max-w-3xl w-full md:w-3/4 lg:w-2/3 bg-white/95 text-gray-900 rounded-[32px] shadow-lg px-8 py-6 flex items-center gap-3">
+                <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                <div className="text-sm md:text-base text-gray-700">
+                  Delhi Assembly AI is thinking...
+                </div>
               </div>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input */}
-        <ChatInput onSend={handleSend} disabled={isLoading} />
+        {/* Input pinned to bottom */}
+        <div className="relative z-10">
+          <ChatInput onSend={handleSend} disabled={isLoading} />
+        </div>
       </div>
     </div>
   );

@@ -26,28 +26,25 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
   };
 
   return (
-    <div className="border-t border-gray-200 p-4 bg-white">
-      <div className="flex gap-2 items-end max-w-4xl mx-auto">
+    <div className="px-4 pb-8 pt-4 md:px-16">
+      <div className="max-w-5xl mx-auto bg-white/90 rounded-full shadow-lg flex items-center gap-3 px-6 py-3">
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyPress}
           placeholder="Ask about MLAs, their work, speeches..."
-          className="flex-1 resize-none border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="flex-1 resize-none bg-transparent outline-none text-sm md:text-base text-gray-800 placeholder-gray-400"
           rows={1}
-          style={{ minHeight: '48px', maxHeight: '200px' }}
+          style={{ minHeight: '32px', maxHeight: '120px' }}
           disabled={disabled}
         />
         <button
           onClick={handleSend}
           disabled={disabled || !input.trim()}
-          className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           <Send className="w-5 h-5" />
         </button>
-      </div>
-      <div className="text-xs text-gray-500 text-center mt-2">
-        Press Enter to send, Shift+Enter for new line
       </div>
     </div>
   );
